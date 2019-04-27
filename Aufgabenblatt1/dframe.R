@@ -1,10 +1,7 @@
 ## a) Einlesen der Daten
-# Aufgabe noch nicht korrekt bearbeitet
-load(file = "C:/Users/Judith/Documents/Studium/1. Master/WMM/dframe.rda", verbose = T)
-x = dafra 
+x = get(load(file = "C:/Users/Judith/Documents/Studium/1. Master/WMM/dframe.rda", verbose = T))
 
 ## b) Funktionen ausprobieren
-# Handbuchseiten konsultieren?!
 print(x)
 str(x)
 summary(x)
