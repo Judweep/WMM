@@ -1,5 +1,5 @@
 ## Einlesen der Daten
-bild <- load(file = "C:/Users/Judith/Documents/Studium/1. Master/WMM/colour.rda")
+load(file = "C:/Users/Judith/Documents/Studium/1. Master/WMM/colour.rda")
 plot.array(rlogo)
 
 ## Erstellen eines leeren 3D-Arrays:
@@ -42,12 +42,12 @@ for (i in 1:dim(emptyArray)[1]) {
 
 plot.array(bgArray)
 
-## d) Multifarben
+## d) Blau-Grün + Rot
 
 rotArray = array(0, dim=c(49,49,3))
 for (i in 1:dim(emptyArray)[1]) {
   for (j in 1:dim(emptyArray)[2]) {
-    if ((intWerte[i] + intWerte[j]) < 1 ) {
+    if ((intWerte[i] + intWerte[j]) <= 1 ) {
       rotArray[i,j,1] = 1 - intWerte[i] - intWerte[j]
       rotArray[i,j,2] = intWerte[j]
       rotArray[i,j,3] = intWerte[i]
@@ -59,19 +59,41 @@ plot.array(rotArray)
 
 ## e) multiplikativ
 
+multiArray = array(0, dim=c(49,49,3))
+for (i in 1:dim(emptyArray)[1]) {
+  for (j in 1:dim(emptyArray)[2]) {
+    if ((intWerte[i] + intWerte[j]) <= 1 ) {
+      multiArray[i,j,1] = 1 - intWerte[i] - intWerte[j]
+      multiArray[i,j,2] = intWerte[j]
+      multiArray[i,j,3] = intWerte[i]
+      r = max(multiArray[i,j,1],multiArray[i,j,2],multiArray[i,j,3])
+      multiArray[i,j,1] =  multiArray[i,j,1]/r
+      multiArray[i,j,2] = multiArray[i,j,2]/r
+      multiArray[i,j,3] = multiArray[i,j,3]/r
+      
+    }
+  } 
+}
+
+plot.array(multiArray)
+
+
 ## f) additiv 
 
-
-## Testarray
-
-for (j in 1:dim(emptyArray)[2]) {
-  for (i in 1:dim(emptyArray)[1]) {
-    emptyArray[i,j,1] = 0
-    emptyArray[i,j,2] = 1.5
-    emptyArray[i,j,3] = 0
-    
-    #Nicht grau sondern grün??
-    
-  }
+addArray = array(0, dim=c(49,49,3))
+for (i in 1:dim(emptyArray)[1]) {
+  for (j in 1:dim(emptyArray)[2]) {
+    if ((intWerte[i] + intWerte[j]) <= 1 ) {
+      addArray[i,j,1] = 1 - intWerte[i] - intWerte[j]
+      addArray[i,j,2] = intWerte[j]
+      addArray[i,j,3] = intWerte[i]
+      r = 1 - max(addArray[i,j,1],addArray[i,j,2],addArray[i,j,3])
+      addArray[i,j,1] =  addArray[i,j,1] + r
+      addArray[i,j,2] = addArray[i,j,2] + r
+      addArray[i,j,3] = addArray[i,j,3] + r
+      
+    }
+  } 
 }
-plot.array(emptyArray)
+
+plot.array(addArray)
